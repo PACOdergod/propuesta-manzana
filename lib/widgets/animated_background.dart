@@ -62,8 +62,8 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Colors.white,
-                Colors.black,
+                Colors.green.shade100,
+                Colors.green.shade600,
               ],
               begin: Alignment(
                 posicionAH.value, posicionAV.value
