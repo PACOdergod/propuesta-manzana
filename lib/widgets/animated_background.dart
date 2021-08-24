@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class AnimatedBackground extends StatefulWidget {
@@ -6,48 +7,77 @@ class AnimatedBackground extends StatefulWidget {
 }
 
 class _AnimatedBackgroundState extends State<AnimatedBackground> 
-  with SingleTickerProviderStateMixin
+  with TickerProviderStateMixin
 {
-  double _valor1 = .1;
-  double _valor2 = .7;
-  double _opacidad1 = .1;
-  double _opacidad2 = .7;
+
+  late AnimationController controllerA;
+  late AnimationController controllerB;
+  late Animation<double> posicionA;
+  late Animation<double> posicionB;
+  @override
+  void initState() {
+    super.initState();
+    controllerA = AnimationController(
+      vsync: this, duration: Duration(seconds: 2)
+    );
+    controllerB = AnimationController(
+      vsync: this, duration: Duration(seconds: 4)
+    );
+
+    posicionA = Tween<double>(
+      begin: -1.0, end: 1.0
+    ).animate(controllerA);
+
+    posicionB = Tween<double>(
+      begin: -1.0, end: 1.0
+    ).animate(controllerB);
+
+
+    controllerA.addStatusListener((status) {
+      if (status == AnimationStatus.completed)controllerB.forward();
+      if (status == AnimationStatus.dismissed) controllerB.reverse();
+    });
+
+    controllerB.addStatusListener((status) {
+      if (status == AnimationStatus.completed) controllerA.reverse();
+      if (status == AnimationStatus.dismissed) controllerA.forward();
+    });
+
+    controllerA.forward();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return 
-    TweenAnimationBuilder<double?>(
-      tween: Tween(
-        begin: _opacidad1,
-        end: _opacidad2
+    
+    return AnimatedBuilder(
+      animation: Listenable.merge([
+        controllerA, controllerB
+      ]),
+      child: Container(
+        width: 50,
+        height: 50,
+        color: Colors.green
       ),
-      duration: Duration(seconds: 4),
-      onEnd: (){
-        setState(() {
-          _opacidad1==_valor1
-          ? _opacidad1=_valor2
-          : _opacidad1=_valor1;
-
-          _opacidad2==_valor1
-          ? _opacidad2=_valor2
-          : _opacidad2=_valor1;
-        });
-      },
-      builder: (context, value, child){
+      builder: (BuildContext context, Widget? child) {
         return Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromRGBO(30, 120, 30, value!),
-                Color.fromRGBO(30, 120, 30, .7-value),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight
-            ),
-          ), 
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          color: Colors.red,
+          alignment: Alignment(
+            posicionA.value,
+            posicionB.value,
+          ),
+          child: child
         );
       },
     );
 
   }
+
+  @override
+  void dispose() {
+    controllerA.dispose();
+    super.dispose();
+  }
+
 }
