@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_manzana/pages/login_page.dart';
+import 'package:login_manzana/pages/registro/registro_page1.dart';
 
 void main() => runApp(MyApp());
  
