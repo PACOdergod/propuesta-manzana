@@ -15,7 +15,7 @@ class LoginPage extends StatelessWidget {
 
               AnimatedBackground(),
 
-              _Body(),
+              // _Body(),
 
             ],
           ),
