@@ -18,10 +18,10 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
   void initState() {
     super.initState();
     controllerVertical = AnimationController(
-      vsync: this, duration: Duration(seconds: 2)
+      vsync: this, duration: Duration(seconds: 10)
     );
     controllerHorizontal = AnimationController(
-      vsync: this, duration: Duration(seconds: 4)
+      vsync: this, duration: Duration(seconds: 5)
     );
 
     posicionAV = Tween<double>(
@@ -57,25 +57,22 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
       animation: Listenable.merge([
         controllerVertical, controllerHorizontal
       ]),
-      child: Container(
-        width: 50,
-        height: 50,
-        color: Colors.green
-      ),
       builder: (BuildContext context, Widget? child) {
-        return Stack(
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              color: Colors.red,
-              alignment: Alignment(
-                posicionAV.value,
-                posicionAH.value,
+        return Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.white,
+                Colors.black,
+              ],
+              begin: Alignment(
+                posicionAH.value, posicionAV.value
               ),
-              child: child
+              end:Alignment(
+                0-posicionAH.value, 0-posicionAV.value
+              ), 
             ),
-          ],
+          ),
         );
       },
     );
