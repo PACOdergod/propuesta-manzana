@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_manzana/widgets/animated_background.dart';
 import 'package:login_manzana/widgets/my_icon_boton.dart';
 import 'package:login_manzana/widgets/principal_boton.dart';
 
@@ -12,30 +13,12 @@ class LoginPage extends StatelessWidget {
           child: Stack(
             children: [
 
-              _Back(),
+              AnimatedBackground(),
 
               _Body(),
 
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _Back extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Colors.green.shade400,
-            Colors.green.shade100
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight
         ),
       ),
     );
