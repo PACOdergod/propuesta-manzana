@@ -34,7 +34,7 @@ class _Body extends StatelessWidget {
       child: Column(
         children: [
 
-          SafeArea( child: SizedBox(height: 20),),
+          SafeArea( child: SizedBox(height: 10),),
       
           _Formulario(),
       
@@ -46,7 +46,7 @@ class _Body extends StatelessWidget {
 
           _Registrar(),
 
-          SizedBox(height: 20),
+          SizedBox(height: 15),
 
         ],
       ),
@@ -68,7 +68,7 @@ class _Formulario extends StatelessWidget {
           fontWeight: FontWeight.bold
         ),),
 
-        SizedBox(height: 20),
+        SizedBox(height: 12),
         
         Container(
           padding: EdgeInsets.symmetric(horizontal: 15),
@@ -88,7 +88,7 @@ class _Formulario extends StatelessWidget {
           ),
         ),
     
-        SizedBox(height: 15),
+        SizedBox(height: 12),
     
         Container(
           padding: EdgeInsets.symmetric(horizontal: 15),
@@ -109,13 +109,13 @@ class _Formulario extends StatelessWidget {
               suffixIcon: Icon(
                 Icons.remove_red_eye_outlined, 
                 size: 40,
-                color: Colors.green.shade600,
+                color: Colors.yellow.shade800,
               ),
             ),
           ),
         ),
     
-        SizedBox(height: 15),
+        SizedBox(height: 12),
     
         PrincipalBoton(
           text: 'Iniciar sesion',
@@ -127,7 +127,7 @@ class _Formulario extends StatelessWidget {
         Text('Olvidé mi contraseña', style: TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.normal,
-          fontSize: 17,
+          fontSize: 14,
           decoration: TextDecoration.underline
         ),),
 
@@ -185,9 +185,9 @@ class _Registrar extends StatelessWidget {
           ),),
           SizedBox(height: 10),
           PrincipalBoton(
-            text: 'Registrate', 
+            text: '¿Que esperas?!!', 
             autoajustar: true,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             borderRadius: BorderRadius.circular(30),
           ),
         ],

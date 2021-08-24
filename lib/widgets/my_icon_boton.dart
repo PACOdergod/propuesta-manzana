@@ -37,7 +37,7 @@ class MyIconBoton extends StatelessWidget {
         children: [
           this.icon,
           Text(this.text, style: TextStyle(
-            fontSize: 18,
+            fontSize: 15,
             fontWeight: FontWeight.bold
           ),),
         ],

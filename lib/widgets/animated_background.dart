@@ -18,10 +18,10 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
   void initState() {
     super.initState();
     controllerVertical = AnimationController(
-      vsync: this, duration: Duration(seconds: 10)
+      vsync: this, duration: Duration(seconds: 4)
     );
     controllerHorizontal = AnimationController(
-      vsync: this, duration: Duration(seconds: 5)
+      vsync: this, duration: Duration(seconds: 2)
     );
 
     posicionAV = Tween<double>(
@@ -63,7 +63,7 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
             gradient: LinearGradient(
               colors: [
                 Colors.green.shade100,
-                Colors.green.shade600,
+                Colors.green.shade500,
               ],
               begin: Alignment(
                 posicionAH.value, posicionAV.value

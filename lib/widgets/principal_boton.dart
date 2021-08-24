@@ -36,7 +36,7 @@ class PrincipalBoton extends StatelessWidget {
           ? null
           : this.ancho??MediaQuery.of(context).size.width,
         
-        padding: this.padding??EdgeInsets.symmetric(vertical: 14),
+        padding: this.padding??EdgeInsets.symmetric(vertical: 12),
         alignment: this.autoajustar
           ? null
           : Alignment.center,
