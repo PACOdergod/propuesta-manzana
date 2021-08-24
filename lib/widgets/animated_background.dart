@@ -9,41 +9,45 @@ class AnimatedBackground extends StatefulWidget {
 class _AnimatedBackgroundState extends State<AnimatedBackground> 
   with TickerProviderStateMixin
 {
+  late AnimationController controllerVertical;
+  late AnimationController controllerHorizontal;
+  late Animation<double> posicionAV;
+  late Animation<double> posicionAH;
 
-  late AnimationController controllerA;
-  late AnimationController controllerB;
-  late Animation<double> posicionA;
-  late Animation<double> posicionB;
   @override
   void initState() {
     super.initState();
-    controllerA = AnimationController(
+    controllerVertical = AnimationController(
       vsync: this, duration: Duration(seconds: 2)
     );
-    controllerB = AnimationController(
+    controllerHorizontal = AnimationController(
       vsync: this, duration: Duration(seconds: 4)
     );
 
-    posicionA = Tween<double>(
+    posicionAV = Tween<double>(
       begin: -1.0, end: 1.0
-    ).animate(controllerA);
+    ).animate(controllerVertical);
 
-    posicionB = Tween<double>(
+    posicionAH = Tween<double>(
       begin: -1.0, end: 1.0
-    ).animate(controllerB);
+    ).animate(controllerHorizontal);
 
 
-    controllerA.addStatusListener((status) {
-      if (status == AnimationStatus.completed)controllerB.forward();
-      if (status == AnimationStatus.dismissed) controllerB.reverse();
+    controllerVertical.addStatusListener((status) {
+      if (status == AnimationStatus.completed)
+        controllerHorizontal.forward();
+      if (status == AnimationStatus.dismissed) 
+        controllerHorizontal.reverse();
     });
 
-    controllerB.addStatusListener((status) {
-      if (status == AnimationStatus.completed) controllerA.reverse();
-      if (status == AnimationStatus.dismissed) controllerA.forward();
+    controllerHorizontal.addStatusListener((status) {
+      if (status == AnimationStatus.completed) 
+        controllerVertical.reverse();
+      if (status == AnimationStatus.dismissed) 
+        controllerVertical.forward();
     });
 
-    controllerA.forward();
+    controllerVertical.forward();
   }
 
   @override
@@ -51,7 +55,7 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
     
     return AnimatedBuilder(
       animation: Listenable.merge([
-        controllerA, controllerB
+        controllerVertical, controllerHorizontal
       ]),
       child: Container(
         width: 50,
@@ -59,15 +63,19 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
         color: Colors.green
       ),
       builder: (BuildContext context, Widget? child) {
-        return Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          color: Colors.red,
-          alignment: Alignment(
-            posicionA.value,
-            posicionB.value,
-          ),
-          child: child
+        return Stack(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              color: Colors.red,
+              alignment: Alignment(
+                posicionAV.value,
+                posicionAH.value,
+              ),
+              child: child
+            ),
+          ],
         );
       },
     );
@@ -76,7 +84,8 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
 
   @override
   void dispose() {
-    controllerA.dispose();
+    controllerVertical.dispose();
+    controllerHorizontal.dispose();
     super.dispose();
   }
 
